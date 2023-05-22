@@ -5,10 +5,10 @@
   <meta charset="utf-8">
   <meta content="width=device-width, initial-scale=1.0" name="viewport">
 
-  <title>KAMAL AI</title>
+  <title>Tic Tac Toe</title>
   <meta content="" name="description">
   <meta content="" name="keywords">
-  <!-- Latest compiled and minified CSS -->
+<!-- Latest compiled and minified CSS -->
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
 
 <!-- jQuery library -->
@@ -16,12 +16,12 @@
 
 <!-- Latest compiled JavaScript -->
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
-
   <!-- Google Fonts -->
   <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Raleway:300,300i,400,400i,500,500i,600,600i,700,700i|Poppins:300,300i,400,400i,500,500i,600,600i,700,700i" rel="stylesheet">
 
   <!-- Template Main CSS File -->
-  <link href="CSS/style.css" rel="stylesheet">
+  <link href="../CSS/style.css" rel="stylesheet">
+  <link href="ttt.css" rel="stylesheet">
 
 </head>
 
@@ -31,20 +31,20 @@
   <header id="header" class="d-flex align-items-center">
     <div class="container d-flex align-items-center">
 
-      <h1 class="logo me-auto"><a href="index.html">KAMAL</a></h1>
+      <h1 class="logo me-auto"><a href="../index.html">KAMAL</a></h1>
       <!-- Uncomment below if you prefer to use an image logo -->
       <!-- <a href="index.html" class="logo me-auto"><img src="assets/img/logo.png" alt="" class="img-fluid"></a>-->
 
       <nav id="navbar" class="navbar">
         <ul>
-          <li><a class="nav-link scrollto active" href="#">Home</a></li>
+          <li><a class="nav-link scrollto active" href="../index.html">Home</a></li>
           <li><a class="nav-link scrollto" href="#about">About</a></li>
           <li><a class="nav-link scrollto" href="#services">Services</a></li>
           <li><a class="nav-link scrollto " href="https://kamallc.github.io/portfolioweb/" target="blank">Portfolio</a></li>
           <li><a class="nav-link scrollto" href="#team">Team</a></li>
           <li class="dropdown"><a href="#"><span>AI Projects</span> <i class="bi bi-chevron-down"></i></a>
             <ul>
-              <li><a href="TicTacToe/index.html">Tic Tac Toe</a></li>
+              <li><a href="#">Tic Tac Toe</a></li>
               <li class="dropdown"><a href="#"><span>Deep Drop Down</span> <i class="bi bi-chevron-right"></i></a>
                 <ul>
                   <li><a href="#">Deep Drop Down 1</a></li>
@@ -90,17 +90,48 @@
     </div>
   </footer> --><!-- End Footer -->
 
-  <a href="#" class="back-to-top d-flex align-items-center justify-content-center"><i class="bi bi-arrow-up-short"></i></a>
+    <div class="left">
+      <br>
+      <h4>Choose Player(X will play first.)</h4>
+      <input type="radio" id="playerX" name="player" value="X" checked>
+      <label for="playerX">Player X</label><br>
+      <input type="radio" id="playerO" name="player" value="O">
+      <label for="playerO">Player O</label><br>
 
-  <!-- Vendor JS Files -->
-  <script src="assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
-  <script src="assets/vendor/glightbox/js/glightbox.min.js"></script>
-  <script src="assets/vendor/isotope-layout/isotope.pkgd.min.js"></script>
-  <script src="assets/vendor/swiper/swiper-bundle.min.js"></script>
-  <script src="assets/vendor/php-email-form/validate.js"></script>
+      <br>
+      <br>
 
+      <h4>Select Algorithm</h4>
+      <input type="radio" id="minimax" name="algo" value="minimax" checked>
+      <label for="minimax">Minimax</label><br>
+      <input type="radio" id="alphabeta" name="algo" value="alphabeta">
+      <label for="alphabeta">AlphaBeta</label><br>
+      
+       <button id="start">Start</button>
+    </div>
+   <div class="wrapper1">
+    
+       <!-- <button id="restart">Restart</button> -->
+       <div class="container1">
+           <button class="button-option"></button>
+           <button class="button-option"></button>
+           <button class="button-option"></button>
+           <button class="button-option"></button>
+           <button class="button-option"></button>
+           <button class="button-option"></button>
+           <button class="button-option"></button>
+           <button class="button-option"></button>
+           <button class="button-option"></button>
+       </div>
+       <div class="container2">
+         <h4 id="result"> </h4>
+       </div>
+       
+   </div>
+    <div class="right"></div>
   <!-- Template Main JS File -->
   <script src="JS/main.js"></script>
+  <script src="ttt.js"></script>
 
 </body>
 
