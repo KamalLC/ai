@@ -1,5 +1,7 @@
 var playCount = 0;
 var minimaxCount = 0;
+var alphaBetaCount = 0;
+
 var winner;
 var turn = "X";
 var humanPlayer;
@@ -77,6 +79,7 @@ function startGame(){
 	turn = "X";
 	playCount = 0;
 	minimaxCount = 0;
+	alphaBetaCount = 0;
 	winner = "";
 	document.getElementById("result").innerHTML = "";
 
@@ -211,13 +214,19 @@ function autoPlay(){
 	var ind = 0;
 
 	minimaxCount = 0;
+	alphaBetaCount = 0;
 
 	for(let i = 0; i < 9; i++){
 		if(board[i] == " "){
 			board[i] = turn;
 			switchTurn();
 
-			var score = minimax(false);
+			var score;
+			if(algorithm == "minimax"){
+				score = minimax(false);
+			}else{
+				score = alphaBeta(false);
+			}
 
 			if(score > maxScore){
 				maxScore = score;
@@ -229,7 +238,13 @@ function autoPlay(){
 			// console.log(i + ":" + score + " ind: " + ind);
 		}
 	}
-	// console.log(minimaxCount);
+	// console.log("hey");
+	// console.log("minimaxCount = " + minimaxCount);
+	// console.log("alphaBetaCount = " + alphaBetaCount);
+
+	document.getElementById("alg").innerHTML = algorithm;
+	document.getElementById("count").innerHTML = Math.max(minimaxCount, alphaBetaCount);
+
 	putMarkAi(ind);
 	// console.log("maxScore = " + maxScore);
 }
@@ -278,6 +293,64 @@ function minimax(isMaximizing){
 
 				board[i] = " ";
 				switchTurn();
+			}
+		}
+		return minScore;
+	}
+}
+
+function alphaBeta(isMaximizing){
+	if(getWinner() !== " "){
+		return getWinner() === aiPlayer ? 1 : -1;
+	}
+	if(countRemainingMoves() == 0){
+		return 0;
+	}
+	alphaBetaCount++;
+
+	if(isMaximizing){
+		var maxScore = -100;
+
+		for(let i = 0; i < 9; i++){
+			if(board[i] == " "){
+				board[i] = turn;
+				switchTurn();
+
+				var score = alphaBeta(false);
+
+				if(score > maxScore){
+					maxScore = score;
+				}
+
+				board[i] = " ";
+				switchTurn();
+
+				if(maxScore == 1){
+					break;
+				}
+			}
+		}
+		return maxScore;
+	}else{
+		var minScore = 100;
+
+		for(let i = 0; i < 9; i++){
+			if(board[i] == " "){
+				board[i] = turn;
+				switchTurn();
+
+				var score = alphaBeta(true);
+
+				if(score < minScore){
+					minScore = score;
+				}
+
+				board[i] = " ";
+				switchTurn();
+
+				if(minScore == -1){
+					break;
+				}
 			}
 		}
 		return minScore;
