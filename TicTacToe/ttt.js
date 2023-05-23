@@ -41,6 +41,15 @@ function clearBoard(){
 		playBoxes[i].innerHTML = " ";
 		board[i] = " ";
 		playBoxes[i].style.backgroundColor = "#ffffff";
+
+
+		var idName = "c" + (i+1);
+		// console.log(idName);
+		document.getElementById(idName).innerHTML = "0";
+
+		var selectedName = "added" + (i+1);
+		var selectedRow = document.getElementById(selectedName);
+		selectedRow.style.visibility = "hidden";
 	}
 }
 
