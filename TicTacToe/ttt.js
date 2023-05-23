@@ -39,6 +39,13 @@ function clearBoard(){
 	for(let i = 0; i < 9; i++){
 		playBoxes[i].innerHTML = " ";
 		board[i] = " ";
+		playBoxes[i].style.backgroundColor = "#ffffff";
+	}
+}
+
+function clearBackground(){
+	for(let i = 0; i < 9; i++){
+		playBoxes[i].style.backgroundColor = "#ffffff";
 	}
 }
 
@@ -180,6 +187,7 @@ function putMark(e){
 	e.target.innerHTML = turn;
 	e.target.disabled = true;
 	turn = turn == 'X' ? 'O' : 'X';
+	// e.target.style.backgroundColor = "#D0F5BE";
 	stateChanged();
 	isGameOver();
 }
@@ -188,6 +196,7 @@ function putMarkAi(e){
 	playBoxes[e].innerHTML = turn;
 	playBoxes[e].disabled = true;
 	turn = turn == 'X' ? 'O' : 'X';
+	playBoxes[e].style.backgroundColor = "#D0F5BE";
 	stateChanged();
 	isGameOver();
 }
@@ -218,7 +227,16 @@ function autoPlay(){
 	minimaxCount = 0;
 	alphaBetaCount = 0;
 
+	clearBackground();
+
 	for(let i = 0; i < 9; i++){
+		var idName = "c" + (i+1);
+		// console.log(idName);
+		document.getElementById(idName).innerHTML = "occupied";
+
+		var selectedName = "added" + (i+1);
+		var selectedRow = document.getElementById(selectedName);
+		selectedRow.style.visibility = "hidden";
 		if(board[i] == " "){
 			board[i] = turn;
 			switchTurn();
@@ -238,8 +256,12 @@ function autoPlay(){
 			board[i] = " ";
 			switchTurn();
 			// console.log(i + ":" + score + " ind: " + ind);
+			document.getElementById(idName).innerHTML = score;
 		}
 	}
+	var selectedName = "added" + (ind+1);
+	var selectedCell = document.getElementById(selectedName);
+	selectedCell.style.visibility = "visible";
 	// console.log("hey");
 	// console.log("minimaxCount = " + minimaxCount);
 	// console.log("alphaBetaCount = " + alphaBetaCount);

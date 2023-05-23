@@ -30,7 +30,7 @@
 
 .right{
 	/*background-color: blue;*/
-	width: 300px;
+	width: 320px;
 	height: 420px;
 	position: absolute;
 	left: 920px;
@@ -60,4 +60,47 @@
 
 #result{
   line-height: 10px;
+}
+
+
+th, td {
+  border: 1px solid black;
+  border-collapse: collapse;
+}
+
+
+table {
+  margin-left: auto; 
+  margin-right: auto;
+}
+
+th, td {
+  width: 80px;
+  text-align: center;
+}
+
+.added{
+  border: none;
+  text-align: left;
+  width: auto;
+  visibility: hidden;
+}
+
+#stat_first{
+  text-align: justify;
+  text-align-last: justify;
+}
+
+.stat{
+  justify-content: center;
+  text-align: center;
+}
+
+.visible{
+  visibility: visible;
+}
+
+#note th{
+  border: none;
+  outline: none;
 }
