@@ -7,6 +7,7 @@ var turn = "X";
 var humanPlayer;
 var aiPlayer;
 var algorithm;
+var gameOver = false;
 
 var startBtn = document.getElementById("start");
 
@@ -88,6 +89,7 @@ function startGame(){
 	minimaxCount = 0;
 	alphaBetaCount = 0;
 	winner = "";
+	gameOver = false;
 	document.getElementById("result").innerHTML = "";
 	document.getElementById("count").innerHTML = Math.max(minimaxCount, alphaBetaCount);
 
@@ -136,6 +138,8 @@ function isGameOver(){
 	winner = getWinner();
 	if(winner == "X" || winner == "O" || countRemainingMoves() == 0){
 		// console.log("56 true" + winner);
+		gameOver = true;
+		winner = getWinner();
 		return true;
 	}
 }
@@ -147,7 +151,12 @@ function getWinner(){
 		// checking rows for winner
 		if(board[3*i] == board[3*i + 1] && board[3*i + 1] == board[3*i + 2]){
 			if(board[3*i] != " "){
-				// console.log("win time i = " + i);
+				if(gameOver){
+					playBoxes[3*i].style.backgroundColor = "#D0F5BE";
+					playBoxes[3*i + 1].style.backgroundColor = "#D0F5BE";
+					playBoxes[3*i + 2].style.backgroundColor = "#D0F5BE";
+				}
+				
 				return board[3*i];
 			}
 			
@@ -156,6 +165,11 @@ function getWinner(){
 		// checking column for winner
 		if(board[i] == board[i + 3] && board[i + 3] == board[i + 6]){
 			if(board[i] != " "){
+				if(gameOver){
+					playBoxes[i].style.backgroundColor = "#D0F5BE";
+					playBoxes[i + 3].style.backgroundColor = "#D0F5BE";
+					playBoxes[i + 6].style.backgroundColor = "#D0F5BE";
+				}
 				return board[i];
 			}
 		}
@@ -164,6 +178,11 @@ function getWinner(){
 	// checking first diagonal for winner
 	if(board[0] == board[4] && board[4] == board[8]){
 		if(board[0] != " "){
+			if(gameOver){
+				playBoxes[0].style.backgroundColor = "#D0F5BE";
+				playBoxes[4].style.backgroundColor = "#D0F5BE";
+				playBoxes[8].style.backgroundColor = "#D0F5BE";
+			}
 			return board[0];
 		}
 	}
@@ -171,6 +190,11 @@ function getWinner(){
 	// checking second diagonal for winner
 	if(board[2] == board[4] && board[4] == board[6]){
 		if(board[2] != " "){
+			if(gameOver){
+				playBoxes[2].style.backgroundColor = "#D0F5BE";
+				playBoxes[4].style.backgroundColor = "#D0F5BE";
+				playBoxes[6].style.backgroundColor = "#D0F5BE";
+			}
 			return board[2];
 		}
 	}
