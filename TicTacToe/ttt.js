@@ -82,7 +82,6 @@ function startGame(){
 	alphaBetaCount = 0;
 	winner = "";
 	document.getElementById("result").innerHTML = "";
-	document.getElementById("alg").innerHTML = algorithm;
 	document.getElementById("count").innerHTML = Math.max(minimaxCount, alphaBetaCount);
 
 	// finding which sign the human player has choosen
@@ -104,6 +103,7 @@ function startGame(){
 	        // console.log(algorithm);
 	    }
 	}
+	document.getElementById("alg").innerHTML = algorithm;
 
 	if(turn != humanPlayer){
 		autoPlay();
