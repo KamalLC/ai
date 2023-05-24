@@ -104,3 +104,35 @@ th, td {
   border: none;
   outline: none;
 }
+
+
+
+@media (max-width: 1000px) {
+
+  .left{
+    /*background-color: red;*/
+    width: auto;
+    height: auto;
+    position: absolute;
+    left: 150px;
+    top: 100px;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .wrapper1 {
+    position: absolute;
+    transform: translate(-50%, -50%);
+    top: 50%;
+    left: 50%;
+    margin-top: 190px;
+  }
+
+  .right{
+    position: absolute;
+    left: 150px;
+    top: 1190px;
+    justify-content: center;
+    align-items: center;
+  }
+}
