@@ -18,23 +18,23 @@
   height: 20px;
 }
 .left{
-	/*background-color: red;*/
-	width: 300px;
-	height: 420px;
-	position: absolute;
-	left: 150px;
-	top: 100px;
+  /*background-color: red;*/
+  width: 300px;
+  height: 420px;
+  position: absolute;
+  left: 150px;
+  top: 100px;
   justify-content: center;
   align-items: center;
 }
 
 .right{
-	/*background-color: blue;*/
-	width: 320px;
-	height: 420px;
-	position: absolute;
-	left: 920px;
-	top: 100px;
+  /*background-color: blue;*/
+  width: 320px;
+  height: 420px;
+  position: absolute;
+  left: 920px;
+  top: 100px;
 }
 .button-option {
   background: #ffffff;
@@ -110,9 +110,9 @@ th, td {
 @media (max-width: 1000px) {
 
   .left{
-    /*background-color: red;*/
+    /*background-color: red;*//*
     width: auto;
-    height: auto;
+    height: auto;*/
     position: unset;
     margin-left: auto;
     margin-right: auto;/*
@@ -122,21 +122,15 @@ th, td {
 
   .wrapper1 {
     position: relative;
-    transform: translate(-50%);
+    transform: translate(-40%);
     top: 50%;
-    left: 55%;
-    /*padding: auto;*/
-    /*width: auto;*/
+    left: 50%;
+    margin-top: auto;
   }
 
   .right{
-    width: auto;
-    height: auto;
     position: unset;
     margin-left: auto;
     margin-right: auto;
-  }
-  #stbr{
-    display: none;
   }
 }
