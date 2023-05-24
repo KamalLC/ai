@@ -110,9 +110,9 @@ th, td {
 @media (max-width: 1000px) {
 
   .left{
-    /*background-color: red;*//*
+    /*background-color: red;*/
     width: auto;
-    height: auto;*/
+    height: auto;
     position: unset;
     margin-left: auto;
     margin-right: auto;/*
@@ -122,15 +122,21 @@ th, td {
 
   .wrapper1 {
     position: relative;
-    transform: translate(-40%);
+    transform: translate(-50%);
     top: 50%;
-    left: 50%;
-    margin-top: auto;
+    left: 55%;
+    /*padding: auto;*/
+    /*width: auto;*/
   }
 
   .right{
+    width: auto;
+    height: auto;
     position: unset;
     margin-left: auto;
     margin-right: auto;
+  }
+  #stbr{
+    display: none;
   }
 }
