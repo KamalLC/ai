@@ -5,9 +5,11 @@ var previousTiles = [];
 var humanCount = 0;
 var aiCount = 0;
 var count = 0;
+let solving;
 
 var $target = $('.eight-puzzle');
 
+document.getElementById("solve").addEventListener("click", solve);
 document.getElementById("new_puzzle").addEventListener("click", generateNewTile);
 document.getElementById("suggest_move").addEventListener("click", suggestNextMove);
 
@@ -38,6 +40,7 @@ function compareTiles(destination, source){
 }
 
 function generateNewTile(){
+    clearInterval(solving);
 	var i = 0;
 	tiles = [];
 
@@ -64,9 +67,16 @@ function generateNewTile(){
 	renderTiles();
 }
 
+function isSolved(){
+    falseCount = getFalseCount();
+    console.log(falseCount == 0);
+    return falseCount == 0;
+}
+
 var falseCount = 0;
 
 function renderTiles() {
+    count++;
 	
     // console.log("hello");
     // falseCount = 0;
@@ -139,18 +149,26 @@ var shiftTileArray = function (ind) {
         var temp = tiles[targetIndex];
         tiles[targetIndex] = tiles[index];
         tiles[index] = temp;
-        for(let i = 1; i < 9; i++){
-        	if(tiles[i - 1] != i){
-        		falseCount++;
-        	}
-        }
-        count++;
+        getFalseCount();
+        // count++;
         getPossibleMoves();
-        document.getElementById("humanCounter").innerHTML = "falseCount : " + falseCount + " getHeuristic = " + "<br>possibleMoves = " + possibleMoves;
+        document.getElementById("humanCounter").innerHTML = "Total Iterations : " + count;
     }
     // console.log("falsecount at shiftTileArray = " + falseCount);
 
 };
+
+function getFalseCount(){
+    falseCount = 0;
+    for(let i = 1; i < 9; i++){
+        if(tiles[i - 1] != i){
+            falseCount++;
+        }
+    }
+    // console.log(falseCount);
+
+    return falseCount;
+}
 
 function isMoveValid(index){
 
@@ -208,14 +226,18 @@ var shiftTileWithIndex = function (ind) {
 
 generateNewTile();
 
+function solve(){
+    solving = setInterval(nextMove, 1);
+}
+
 function suggestNextMove(){
-	nextMove(0);
+    nextMove();
 }
 
 
 // A* algorithms starts here
 
-function nextMove(depth){
+function nextMove(depth = 0){
     var move = 0;
     var leastHeuristic = Infinity;
     var stri = "";
@@ -264,5 +286,12 @@ function nextMove(depth){
     }
     // console.log(previousTiles);
     // console.log(tiles);
+
+    if(falseCount == 0){
+        clearInterval(solving);
+        console.log("solved");
+        console.log(falseCount == 0);
+        console.log("total iterations = " + count);
+    }
     
 }
