@@ -1,4 +1,14 @@
 
+.wrapper0 {
+  position: absolute;
+  transform: translate(-50%, -50%);
+  top: 50%;
+  left: 20%;
+  margin: 0;
+  width: 272px; /* 270 + 4 (borders) */
+  height: 272px; /* 270 + 4 (borders) */
+  
+}
 .wrapper1 {
   position: absolute;
   transform: translate(-50%, -50%);
@@ -6,6 +16,18 @@
   left: 50%;
   margin-top: 10px;
 }
+
+.wrapper2 {
+  position: absolute;
+  transform: translate(-50%, -50%);
+  top: 50%;
+  left: 200%;
+  margin: 0;
+  width: 272px; /* 270 + 4 (borders) */
+  height: 272px; /* 270 + 4 (borders) */
+  
+}
+
 .container1 {
   width: 70vmin;
   height: 70vmin;
