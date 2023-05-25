@@ -227,11 +227,17 @@ var shiftTileWithIndex = function (ind) {
 generateNewTile();
 
 function solve(){
-    solving = setInterval(nextMove, 1);
+    falseCount = getFalseCount();
+    if(falseCount != 0){
+        solving = setInterval(nextMove, 1);
+    }
 }
 
 function suggestNextMove(){
-    nextMove();
+    falseCount = getFalseCount();
+    if(falseCount != 0){
+        nextMove();
+    }
 }
 
 
