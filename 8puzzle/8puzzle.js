@@ -1,6 +1,7 @@
 /// <reference path="../lib/typings/jquery/jquery.d.ts"/>
 
 var tiles = [2, 3, 1, 4, 5, 6, 7, 8, 0];
+var previousTiles = [];
 var humanCount = 0;
 var aiCount = 0;
 var count = 0;
@@ -12,6 +13,28 @@ document.getElementById("suggest_move").addEventListener("click", suggestNextMov
 
 function render(){
 	console.log("hello");
+}
+
+function copyTiles(destination, source){
+    previousTiles = [];
+    for(let i = 0; i < source.length; i++){
+        previousTiles.push(source[i]);
+    }
+
+    // console.log(previousTiles);
+    // console.log(previousTiles);
+}
+
+function compareTiles(destination, source){
+    if(destination.length != source.length){
+        return false;
+    }
+    for(let i = 0; i < source.length; i++){
+        if(source[i] != destination[i]){
+            return false;
+        }
+    }
+    return true;
 }
 
 function generateNewTile(){
@@ -156,7 +179,7 @@ function getHeuristic(level, index){
     var temp = tiles.indexOf(0);
     // console.log("falsecount at getHeuristic = " + falseCount);
     shiftTileArray(index);
-    console.log("falsecount at getHeuristic = " + falseCount);
+    // console.log("falsecount at getHeuristic = " + falseCount);
 	var heu = level + falseCount;
     // console.log("heu at getHeuristic = " + heu);
     shiftTileArray(temp);
@@ -177,6 +200,7 @@ function getPossibleMoves(){
 
 
 var shiftTileWithIndex = function (ind) {
+    copyTiles(previousTiles, tiles);
     shiftTileArray(ind);
     renderTiles();
 
@@ -200,7 +224,7 @@ function nextMove(depth){
 
     for(let i = 0; i < possibleMoves.length; i++){
         var heuristic = getHeuristic(depth, possibleMoves[i]);
-        console.log(heuristic);
+        // console.log(heuristic);
         if(leastHeuristic > heuristic){
             leastHeuristic = heuristic;
             move = possibleMoves[i];
@@ -209,5 +233,36 @@ function nextMove(depth){
 
     }
     document.getElementById("aiCounter").innerHTML = "leastHeuristic = " + leastHeuristic;
-    shiftTileWithIndex(move);
+    
+    var indOfZero = tiles.indexOf(0);
+    shiftTileArray(move);
+    if(!compareTiles(previousTiles, tiles)){
+        // console.log("if called");
+        shiftTileArray(indOfZero);
+        shiftTileWithIndex(move);
+    }else{
+        shiftTileArray(indOfZero);
+        // console.log("else called");
+        // console.log(move);
+        var randomMove = move;
+        var randomNum = 0;
+        // getPossibleMoves();
+        while(randomMove == move){
+            randomNum = Math.floor(Math.random()*possibleMoves.length);
+            randomMove = possibleMoves[randomNum];
+        }
+        randomMove = possibleMoves[randomNum];
+        // console.log(possibleMoves,possibleMoves[randomNum]);
+
+        // console.log(previousTiles);
+        // console.log(tiles);
+        // console.log(possibleMoves);
+        // console.log(randomNum);
+        // console.log(randomMove);
+
+        shiftTileWithIndex(randomMove);
+    }
+    // console.log(previousTiles);
+    // console.log(tiles);
+    
 }
