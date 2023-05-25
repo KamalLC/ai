@@ -99,9 +99,13 @@ var shiftTileArray = function (ind) {
 
     var targetIndex = -1;
     if (index - 1 >= 0 && tiles[index - 1] == 0) { // check left
-        targetIndex = index - 1;
+        if(Math.floor(index/3) == Math.floor((index - 1)/3)){
+            targetIndex = index - 1;
+        }
     } else if (index + 1 < tiles.length && tiles[index + 1] == 0) { // check right
-        targetIndex = index + 1;
+        if(Math.floor(index/3) == Math.floor((index + 1)/3)){
+            targetIndex = index + 1;
+        }
     } else if (index - 3 >= 0 && tiles[index - 3] == 0) { //check up
         targetIndex = index - 3;
     } else if (index + 3 < tiles.length && tiles[index + 3] == 0) { // check down
@@ -119,8 +123,9 @@ var shiftTileArray = function (ind) {
         }
         count++;
         getPossibleMoves();
-        document.getElementById("humanCounter").innerHTML = "Human Counter : " + count + " getHeuristic = " + getHeuristic(0) + "<br>possibleMoves = " + possibleMoves;
+        document.getElementById("humanCounter").innerHTML = "falseCount : " + falseCount + " getHeuristic = " + "<br>possibleMoves = " + possibleMoves;
     }
+    // console.log("falsecount at shiftTileArray = " + falseCount);
 
 };
 
@@ -128,9 +133,13 @@ function isMoveValid(index){
 
     var targetIndex = -1;
     if (index - 1 >= 0 && tiles[index - 1] == 0) { // check left
-        targetIndex = index - 1;
+        if(Math.floor(index/3) == Math.floor((index - 1)/3)){
+            targetIndex = index - 1;
+        }
     } else if (index + 1 < tiles.length && tiles[index + 1] == 0) { // check right
-        targetIndex = index + 1;
+        if(Math.floor(index/3) == Math.floor((index + 1)/3)){
+            targetIndex = index + 1;
+        }
     } else if (index - 3 >= 0 && tiles[index - 3] == 0) { //check up
         targetIndex = index - 3;
     } else if (index + 3 < tiles.length && tiles[index + 3] == 0) { // check down
@@ -143,8 +152,15 @@ function isMoveValid(index){
     return false;
 }
 
-function getHeuristic(level){
-	return level + falseCount;
+function getHeuristic(level, index){
+    var temp = tiles.indexOf(0);
+    // console.log("falsecount at getHeuristic = " + falseCount);
+    shiftTileArray(index);
+    console.log("falsecount at getHeuristic = " + falseCount);
+	var heu = level + falseCount;
+    // console.log("heu at getHeuristic = " + heu);
+    shiftTileArray(temp);
+    return heu;
 }
 
 var possibleMoves = [];
@@ -169,9 +185,29 @@ var shiftTileWithIndex = function (ind) {
 generateNewTile();
 
 function suggestNextMove(){
-	shiftTileWithIndex(3);
+	nextMove(0);
 }
 
 
 // A* algorithms starts here
 
+function nextMove(depth){
+    var move = 0;
+    var leastHeuristic = Infinity;
+    var stri = "";
+
+    getPossibleMoves();
+
+    for(let i = 0; i < possibleMoves.length; i++){
+        var heuristic = getHeuristic(depth, possibleMoves[i]);
+        console.log(heuristic);
+        if(leastHeuristic > heuristic){
+            leastHeuristic = heuristic;
+            move = possibleMoves[i];
+        }
+        // stri = stri + (i + " = " + heuristic + ",");
+
+    }
+    document.getElementById("aiCounter").innerHTML = "leastHeuristic = " + leastHeuristic;
+    shiftTileWithIndex(move);
+}
