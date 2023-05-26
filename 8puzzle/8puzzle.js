@@ -6,6 +6,7 @@ var humanCount = 0;
 var aiCount = 0;
 var count = 0;
 let solving;
+var paused = true;
 
 var $target = $('.eight-puzzle');
 
@@ -14,7 +15,7 @@ document.getElementById("new_puzzle").addEventListener("click", generateNewTile)
 document.getElementById("suggest_move").addEventListener("click", suggestNextMove);
 
 function render(){
-	console.log("hello");
+    console.log("hello");
 }
 
 function copyTiles(destination, source){
@@ -41,30 +42,32 @@ function compareTiles(destination, source){
 
 function generateNewTile(){
     clearInterval(solving);
-	var i = 0;
-	tiles = [];
+    var i = 0;
+    tiles = [];
 
-	humanCount = 0;
-	aiCount = 0;
-	count = 0;
+    humanCount = 0;
+    aiCount = 0;
+    count = 0;
 
-	while(i < 9){
-		let x = Math.floor((Math.random() * 9));
-		if(!tiles.includes(x)){
-			tiles.push(x);
-			i++;
-		}
-	}
+    while(i < 9){
+        let x = Math.floor((Math.random() * 9));
+        if(!tiles.includes(x)){
+            tiles.push(x);
+            i++;
+        }
+    }
     document.getElementById("humanCounter").innerHTML = "Human Counter : " + count;
     
     if(!checkSolvable()){
-    	generateNewTile();
+        generateNewTile();
     }
 
+    paused = true;
+    document.getElementById("solve").innerHTML = "Solve";
     document.getElementById("aiCounter").innerHTML = checkSolvable();
 
 
-	renderTiles();
+    renderTiles();
 }
 
 function isSolved(){
@@ -77,7 +80,7 @@ var falseCount = 0;
 
 function renderTiles() {
     count++;
-	
+    
     // console.log("hello");
     // falseCount = 0;
 
@@ -105,11 +108,11 @@ function renderTiles() {
 var checkSolvable = function () {
     var sum = 0;
     for (var i = 0; i < 8; i++) {
-    	for(var j = i + 1; j < 9; j++){
-    		if(tiles[i] && tiles[j] && tiles[i] > tiles[j]){
-    			sum++;
-    		}
-    	}
+        for(var j = i + 1; j < 9; j++){
+            if(tiles[i] && tiles[j] && tiles[i] > tiles[j]){
+                sum++;
+            }
+        }
 
     }
 
@@ -188,7 +191,7 @@ function isMoveValid(index){
     }
 
     if(targetIndex != -1){
-    	return true;
+        return true;
     }
     return false;
 }
@@ -198,7 +201,7 @@ function getHeuristic(level, index){
     // console.log("falsecount at getHeuristic = " + falseCount);
     shiftTileArray(index);
     // console.log("falsecount at getHeuristic = " + falseCount);
-	var heu = level + falseCount;
+    var heu = level + falseCount;
     // console.log("heu at getHeuristic = " + heu);
     shiftTileArray(temp);
     return heu;
@@ -207,13 +210,13 @@ function getHeuristic(level, index){
 var possibleMoves = [];
 
 function getPossibleMoves(){
-	possibleMoves = [];
-	
-	for(let i = 0; i < 9; i++){
-		if(isMoveValid(i)){
-			possibleMoves.push(i);
-		}
-	}
+    possibleMoves = [];
+    
+    for(let i = 0; i < 9; i++){
+        if(isMoveValid(i)){
+            possibleMoves.push(i);
+        }
+    }
 }
 
 
@@ -229,7 +232,17 @@ generateNewTile();
 function solve(){
     falseCount = getFalseCount();
     if(falseCount != 0){
-        solving = setInterval(nextMove, 1);
+        if(paused){
+            document.getElementById("solve").innerHTML = "Pause";
+            paused = false;
+            solving = setInterval(nextMove, 1);
+        }else{
+            console.log("paused");
+            document.getElementById("solve").innerHTML = "Solve";
+            paused = true;
+            clearInterval(solving);
+        }
+        
     }
 }
 
@@ -295,9 +308,9 @@ function nextMove(depth = 0){
 
     if(falseCount == 0){
         clearInterval(solving);
-        console.log("solved");
-        console.log(falseCount == 0);
-        console.log("total iterations = " + count);
+        // console.log("solved");
+        // console.log(falseCount == 0);
+        // console.log("total iterations = " + count);
     }
     
 }
